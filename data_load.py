@@ -10,7 +10,7 @@ DB_HOST = "localhost"
 DB_PORT = "5432"
 
 # Define CSV file path
-csv_file = "C:/Users/shrir/OneDrive/Desktop/duckdb/member_data.csv"
+csv_file = "C:/Users/shrir/OneDrive/Desktop/duckdb/diagnosis_data.csv"
 
 # Read the CSV file into a pandas dataframe
 df = pd.read_csv(csv_file)
@@ -28,16 +28,17 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 # Define table name
-table_name = "members"
+table_name = "diagnosis"
 
 
 
 
 for index, row in df.iterrows():
     insert_query = sql.SQL("""
-        INSERT INTO {} (MemberID, MemberName, MemberAddress, Age, InsuranceProvider, PolicyNumber, EnrollmentDate, PrimaryCarePhysician)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO {} (DiagnosisID, DiagnosisCode, DiagnosisDescription, SpecialistName, TreatmentPlan, HospitalName, LabTestRequired, LabTestDate, MedicationPrescribed, PrescriptionDate, MemberID)
+        VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """).format(sql.Identifier(table_name))
+
     
     cur.execute(insert_query, tuple(row))
 
