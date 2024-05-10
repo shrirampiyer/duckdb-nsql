@@ -1,0 +1,5 @@
+llama-index-llms-ollama 
+llama-index 
+SQLAlchemy 
+pymysql 
+llama-index-embeddings-huggingface
